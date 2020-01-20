@@ -9,12 +9,13 @@ import { Room } from './models/Room';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  roomPicked: boolean = false;
-  rooms: Room[] = [];
-  title = 'client';
-  room: string = '';
 
-  createRoomName: string = '';
+  roomPicked: boolean = false;  // trigger for game component
+  rooms: Room[] = [];  // list of rooms from socket
+  title = 'client'; // whatever this angular bs thing does
+  room: string = ''; // selected room name - passed to game component
+
+  createRoomName: string = ''; // create room name from input on app.comp.html
 
   constructor(public socketService: SocketService) { }
 
@@ -79,7 +80,13 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  testLeaveRoom() {
+  enterRoom(room) {
+    this.room = room;
+    this.createRoomName = '';
+    this.roomPicked = true;
+  }
+
+  leaveRoom() {
     this.socketService.socket.emit('leave room', { room: this.room })
     this.room = '';
     this.roomPicked = false;
@@ -89,11 +96,5 @@ export class AppComponent implements OnInit, OnDestroy {
     e.preventDefault();
     console.log(this.createRoomName)
     this.socketService.socket.emit('join room', {room: this.createRoomName })
-  }
-
-  enterRoom(room) {
-    this.room = room;
-    this.createRoomName = '';
-    this.roomPicked = true;
   }
 }
