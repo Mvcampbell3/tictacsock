@@ -9,9 +9,15 @@
 
     <div class="rooms-holder">
       <div class="room" *ngFor='let room of rooms'>
-        <button class='roomBtn btn' (click)='testRoomClick(room.members, room.roomName)'>{{room.roomName}} <span>players: {{room.members}}</span></button>
+        <button class='roomBtn btn' (click)='testRoomClick(room.members, room.roomName)'>{{room.roomName}}
+          <span>players: {{room.members}}</span></button>
       </div>
     </div>
+
+    <form class="roomCreate">
+      <input type="text" [(ngModel)]='createRoomName' name='createRoomName' placeholder='Room Name...'>
+      <button class="btn testBtn" (click)='handleCreateRoom($event)'>Submit</button>
+    </form>
   </ng-template>
 
 

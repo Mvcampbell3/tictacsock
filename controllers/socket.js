@@ -10,6 +10,7 @@ module.exports = function(io) {
     socket.on('join room', (data) => {
       console.log(data);
       socket.join(`player-${data.room}`);
+      socket.emit('room created', data.room)
       io.emit('room list', socket.adapter.rooms)
     })
 

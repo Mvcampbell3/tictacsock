@@ -7,11 +7,14 @@ import { Room } from './models/Room';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit, OnDestroy {
   roomPicked: boolean = false;
   rooms: Room[] = [];
   title = 'client';
   room: string = '';
+
+  createRoomName: string = '';
 
   constructor(public socketService: SocketService) { }
 
@@ -49,6 +52,11 @@ export class AppComponent implements OnInit, OnDestroy {
       console.log(playerRoomArr)
       this.rooms = playerRoomArr;
     })
+
+    this.socketService.socket.on('room created', (data) => {
+      console.log(data);
+      this.enterRoom(data)
+    })
   }
 
   testRoomPicked() {
@@ -58,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
   testRoomJoin() {
     this.socketService.socket.emit('join room', { room: 'Test1' })
     this.room = 'Test1';
+    this.roomPicked = true;
   }
 
   testRoomClick(players, roomName) {
@@ -65,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
     if (players === 1) {
       console.log('would join room');
       this.socketService.socket.emit('join room', { room: roomName })
-      this.room = roomName;
     } else {
       console.log('would not join room');
     }
@@ -75,5 +83,17 @@ export class AppComponent implements OnInit, OnDestroy {
     this.socketService.socket.emit('leave room', { room: this.room })
     this.room = '';
     this.roomPicked = false;
+  }
+  
+  handleCreateRoom(e) {
+    e.preventDefault();
+    console.log(this.createRoomName)
+    this.socketService.socket.emit('join room', {room: this.createRoomName })
+  }
+
+  enterRoom(room) {
+    this.room = room;
+    this.createRoomName = '';
+    this.roomPicked = true;
   }
 }
