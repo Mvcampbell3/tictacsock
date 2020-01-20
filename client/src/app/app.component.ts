@@ -28,8 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   socketController() {
-    console.log(this.socketService.socket)
-    this.socketService.socket.emit('hello', { hello: 'world' });
+    this.socketService.socket.emit('hello');
 
     this.socketService.socket.on('room list', (data) => {
       /* 

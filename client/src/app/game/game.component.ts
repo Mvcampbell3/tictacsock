@@ -19,7 +19,12 @@ export class GameComponent implements OnInit {
   }
 
   socketController() {
-    this.socketService.socket.emit('hello')
+    console.log('running socket controller')
+    this.socketService.socket.emit('room check', this.room)
+
+    this.socketService.socket.on('room check back', (data) => {
+      console.log(data);
+    })
   }
 
   handleLeaveRoom() {
