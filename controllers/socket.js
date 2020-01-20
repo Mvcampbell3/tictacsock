@@ -13,6 +13,12 @@ module.exports = function(io) {
       io.emit('room list', socket.adapter.rooms)
     })
 
+    socket.on('leave room', (data) => {
+      console.log(data);
+      socket.leave(`player-${data.room}`)
+      io.emit('room list', socket.adapter.rooms)
+    })
+
     socket.on('disconnect', function() {
       console.log('disconnected');
       io.emit('room list', socket.adapter.rooms)

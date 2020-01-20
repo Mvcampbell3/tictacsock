@@ -70,4 +70,10 @@ export class AppComponent implements OnInit, OnDestroy {
       console.log('would not join room');
     }
   }
+
+  testLeaveRoom() {
+    this.socketService.socket.emit('leave room', { room: this.room })
+    this.room = '';
+    this.roomPicked = false;
+  }
 }

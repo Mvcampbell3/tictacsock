@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.btn{
+  display: block;
+  margin-bottom: .5em;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+
+  &:focus{
+    outline: none;
+  }
+}
+
+.testBtn{
+  background-color: #333;
+  color: white;
+}
+
+.roomBtn{
+  background-color: skyblue;
+  color: black;
+}

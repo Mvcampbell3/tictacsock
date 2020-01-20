@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SocketService } from '../services/socket.service';
 
 @Component({
@@ -8,6 +8,10 @@ import { SocketService } from '../services/socket.service';
 })
 export class GameComponent implements OnInit {
 
+  @Input() room: string;
+
+  @Output() leaveRoom = new EventEmitter();
+
   constructor(public socketService: SocketService) { }
 
   ngOnInit() {
@@ -16,5 +20,9 @@ export class GameComponent implements OnInit {
 
   socketController() {
     this.socketService.socket.emit('hello')
+  }
+
+  handleLeaveRoom() {
+    this.leaveRoom.emit();
   }
 }
