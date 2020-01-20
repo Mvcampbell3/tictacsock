@@ -1,5 +1,8 @@
 module.exports = function(io) {
   io.on('connection', function(socket) {
+
+    let roomCheck = 0;
+
     console.log('connected');
 
     socket.on('hello', () => {
@@ -15,8 +18,10 @@ module.exports = function(io) {
 
     socket.on('leave room', (data) => {
       console.log(data);
+      const rightRoom = socket.adapter.rooms[`player-${data.room}`];
+      console.log(rightRoom)
       socket.leave(`player-${data.room}`)
-      
+      // io.to(`player-${data.room}`).emit('room check back', rightRoom.length)
       io.emit('room list', socket.adapter.rooms)
     })
 
@@ -24,6 +29,8 @@ module.exports = function(io) {
       console.log('--------------------------------------------------')
       console.log(room)
       console.log(socket.adapter.rooms)
+      roomCheck++;
+      console.log(roomCheck);
       const rightRoom = socket.adapter.rooms[`player-${room}`];
       console.log(rightRoom);
       io.to(`player-${room}`).emit('room check back', rightRoom.length)

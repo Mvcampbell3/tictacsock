@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyD3h3FoV7Nc5apwy2kLrXwTPsFMFKHqBa0",
+    authDomain: "tictacsock.firebaseapp.com",
+    databaseURL: "https://tictacsock.firebaseio.com",
+    projectId: "tictacsock",
+    storageBucket: "tictacsock.appspot.com",
+    messagingSenderId: "208643686632",
+    appId: "1:208643686632:web:a8b55d1eb9bc530c30c95d",
+    measurementId: "G-2F25V3KH0G"
+  }
 };
 
 /*
