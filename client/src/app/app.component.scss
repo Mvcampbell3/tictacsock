@@ -3,13 +3,25 @@
   margin: 1em auto;
 }
 
-button{
+.btn{
   display: block;
   margin-bottom: .5em;
-  background-color: #333;
-  color: white;
   padding: 10px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
+
+  &:focus{
+    outline: none;
+  }
+}
+
+.testBtn{
+  background-color: #333;
+  color: white;
+}
+
+.roomBtn{
+  background-color: skyblue;
+  color: black;
 }

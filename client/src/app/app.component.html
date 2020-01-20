@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <div class="container">
 
   <app-game *ngIf='roomPicked, else roomSelect'></app-game>
@@ -18,7 +9,7 @@
 
     <div class="rooms-holder">
       <div class="room" *ngFor='let room of rooms'>
-        <h2>{{room.roomName}}</h2>
+        <button class='roomBtn btn' (click)='testRoomClick(room.members, room.roomName)'>{{room.roomName}} <span>players: {{room.members}}</span></button>
       </div>
     </div>
   </ng-template>
