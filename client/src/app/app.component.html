@@ -7,10 +7,17 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<app-game *ngIf='roomPicked, else roomSelect'></app-game>
+<div class="container">
 
-<ng-template #roomSelect>
-  <h2>This is the room selection screen</h2>
-  <button class="testBtn btn" (click)='testRoom()'>Test</button>
-</ng-template>
+  <app-game *ngIf='roomPicked, else roomSelect'></app-game>
+
+  <ng-template #roomSelect>
+    <h2>This is the room selection screen</h2>
+    <button class="testBtn btn" (click)='testRoom()'>Test</button>
+  </ng-template>
+
+
+</div>
+
+
 <router-outlet></router-outlet>

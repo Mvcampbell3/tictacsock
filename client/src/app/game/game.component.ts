@@ -11,9 +11,10 @@ export class GameComponent implements OnInit {
   constructor(public socketService: SocketService) { }
 
   ngOnInit() {
-    console.log(this.socketService.socket)
-    this.socketService.socket.emit('hello')
+    this.socketController();
   }
 
-
+  socketController() {
+    this.socketService.socket.emit('hello')
+  }
 }
