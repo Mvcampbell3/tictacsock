@@ -17,20 +17,23 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.socketService.socket.disconnect();
   }
 
   socketController() {
     console.log(this.socketService.socket)
     this.socketService.socket.emit('hello', {hello: 'world'});
 
-    this.socketService.socket.on('test', () => {
-      console.log('test received')
+    this.socketService.socket.on('room list', (data) => {
+      console.log(data)
     })
   }
 
-  testRoom() {
+  testRoomPicked() {
     this.roomPicked = true;
   }
   
+  testRoomJoin() {
+    this.socketService.socket.emit('join room', {room: 'Test1'})
+  }
 }
