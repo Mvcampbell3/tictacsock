@@ -14,7 +14,8 @@ module.exports = function(io) {
     })
 
     socket.on('disconnect', function() {
-      console.log('disconnected')
+      console.log('disconnected');
+      io.emit('room list', socket.adapter.rooms)
     })
 
   })

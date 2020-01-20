@@ -15,6 +15,12 @@
     <h2>This is the room selection screen</h2>
     <button class="testBtn btn" (click)='testRoomPicked()'>Test roomSelect true</button>
     <button class="testBtn btn" (click)='testRoomJoin()'>Test join room Test1</button>
+
+    <div class="rooms-holder">
+      <div class="room" *ngFor='let room of rooms'>
+        <h2>{{room.roomName}}</h2>
+      </div>
+    </div>
   </ng-template>
 
 
