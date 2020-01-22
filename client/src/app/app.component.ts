@@ -28,6 +28,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   socketController() {
+
+    /*
+      Putting socket.on functions inside of other components has made the callback from server 
+      run multiple times, whereas leaving the .on functions inside this function seems to have
+      the callbacks run once. Still testing to see what is up, but if you want to be able to rely
+      on on callback per move, it might have to be all run through this socketController
+    */
+
     this.socketService.socket.emit('hello');
 
     this.socketService.socket.on('room list', (data) => {
@@ -56,6 +64,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.socketService.socket.on('room created', (data) => {
       console.log(data);
       this.enterRoom(data)
+    })
+
+    this.socketService.socket.on('room check back', (data) => {
+      console.log(data);
     })
   }
 
@@ -90,10 +102,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.room = '';
     this.roomPicked = false;
   }
-  
+
   handleCreateRoom(e) {
     e.preventDefault();
     console.log(this.createRoomName)
-    this.socketService.socket.emit('join room', {room: this.createRoomName })
+    this.socketService.socket.emit('join room', { room: this.createRoomName })
   }
 }
