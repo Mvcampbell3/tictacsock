@@ -9,7 +9,7 @@
 
     <div class="rooms-holder">
       <div class="room" *ngFor='let room of rooms'>
-        <button class='roomBtn btn' (click)='testRoomClick(room.members, room.roomName)'>{{room.roomName}}
+        <button class='roomBtn btn' (click)='handleRoomSelect(room.members, room.roomName)'>{{room.roomName}}
           <span>players: {{room.members}}</span></button>
       </div>
     </div>
