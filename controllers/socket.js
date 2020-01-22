@@ -1,8 +1,6 @@
 module.exports = function(io) {
   io.on('connection', function(socket) {
 
-    let roomCheck = 0;
-
     console.log('connected');
 
     socket.on('hello', () => {
@@ -10,31 +8,37 @@ module.exports = function(io) {
     })
 
     socket.on('join room', (data) => {
+      console.log('-----------join room -------------------')
       console.log(data);
       socket.join(`player-${data.room}`);
       socket.emit('room created', data.room)
       io.emit('room list', socket.adapter.rooms)
+      console.log('-----------join room -------------------')
     })
 
     socket.on('leave room', (data) => {
+      console.log('-----------leave room -------------------')
       console.log(data);
       const rightRoom = socket.adapter.rooms[`player-${data.room}`];
-      console.log(rightRoom)
+
       socket.leave(`player-${data.room}`)
-      // io.to(`player-${data.room}`).emit('room check back', rightRoom.length)
+      if (rightRoom) {
+        io.to(`player-${data.room}`).emit('room check back', rightRoom.length)
+      }
+
       io.emit('room list', socket.adapter.rooms)
+      console.log('-----------leave room -------------------')
+
     })
 
     socket.on('room check', (room) => {
-      console.log('--------------------------------------------------')
+      console.log('-------------------room check---------------------')
       console.log(room)
       console.log(socket.adapter.rooms)
-      roomCheck++;
-      console.log(roomCheck);
       const rightRoom = socket.adapter.rooms[`player-${room}`];
       console.log(rightRoom);
       io.to(`player-${room}`).emit('room check back', rightRoom.length)
-      console.log('------------------------------------------------------')
+      console.log('-------------------room check----------------------')
     })
 
     socket.on('disconnect', function() {

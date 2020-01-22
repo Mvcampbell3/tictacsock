@@ -7,7 +7,10 @@ import { SocketService } from '../services/socket.service';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit, OnDestroy {
+export class GameComponent implements OnInit {
+
+  // Might have to make every single move with socket an output event emitter
+  // I am doing it twice right now, which is dumb
 
   @Input() room: string;
 
@@ -19,9 +22,9 @@ export class GameComponent implements OnInit, OnDestroy {
     this.checkRoom();
   }
 
-  ngOnDestroy() {
-    this.socketService.socket.emit('leave room', this.room)
-  }
+  // ngOnDestroy() {
+  //   this.socketService.socket.emit('leave room', this.room)
+  // }
 
   handleLeaveRoom() {
     this.leaveRoom.emit();
