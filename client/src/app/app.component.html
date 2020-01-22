@@ -1,6 +1,8 @@
 <div class="container">
 
-  <app-game *ngIf='roomPicked, else roomSelect' (leaveRoom)='leaveRoom()' [room]='room'></app-game>
+  <app-game *ngIf='roomPicked, else roomSelect' (leaveRoom)='leaveRoom()' [room]='room' [playerArray]='playerArray'
+    [initOrder]='initOrder'>
+  </app-game>
 
   <ng-template #roomSelect>
     <h2>This is the room selection screen</h2>

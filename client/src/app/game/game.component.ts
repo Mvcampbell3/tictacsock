@@ -9,10 +9,13 @@ import { SocketService } from '../services/socket.service';
 })
 export class GameComponent implements OnInit {
 
-  // Might have to make every single move with socket an output event emitter
-  // I am doing it twice right now, which is dumb
+  // Because of how socket callback is firing multiple times when nested in this component
+  // Have to pull in all of the stuff from app.comp.ts
 
-  @Input() room: string;
+  @Input() room: string;  // room name
+  @Input() playerArray: string[]; // socket id's of players in room
+  @Input() initOrder: number; // Initial placement of player in room, either 0 or 1;
+  
 
   @Output() leaveRoom = new EventEmitter();
 

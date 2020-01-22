@@ -11,7 +11,7 @@ module.exports = function(io) {
       console.log('-----------join room -------------------')
       console.log(data);
       socket.join(`player-${data.room}`);
-      socket.emit('room created', {room: data.room, players: socket.adapter.rooms[`player-${data.room}`].length})
+      socket.emit('room created', { room: data.room, players: socket.adapter.rooms[`player-${data.room}`].length })
       io.emit('room list', socket.adapter.rooms)
       console.log('-----------join room -------------------')
     })
@@ -36,7 +36,9 @@ module.exports = function(io) {
       console.log(room)
       const rightRoom = socket.adapter.rooms[`player-${room}`];
       console.log(rightRoom);
-      io.to(`player-${room}`).emit('room check back', rightRoom.length)
+      console.log(rightRoom.sockets);
+
+      io.to(`player-${room}`).emit('room check back', { players: rightRoom.length, playerArray: Object.keys(rightRoom.sockets) })
       console.log('-------------------room check----------------------')
     })
 

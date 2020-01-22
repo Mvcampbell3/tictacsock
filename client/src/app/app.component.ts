@@ -20,6 +20,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   players: number = 0; // Number of players in the room the player is in
 
+  playerArray: string[] = [];  // Array of socket ids in room
+
+  initOrder: number = null;
+
   createRoomName: string = ''; // create room name from input on app.comp.html
 
   constructor(public socketService: SocketService) { }
@@ -63,10 +67,21 @@ export class AppComponent implements OnInit, OnDestroy {
         If it is, update it so that player left in the room is aware of the disconnect
       */
 
+      // console.log('this is the data from room list')
+      // console.log(data)
+      // console.log('----------------------end room list data')
+
       const roomsArray: string[] = Object.keys(data);
+
+      // console.log('this is the roomsArray pre map')
+      // console.log(roomsArray);
+      // console.log('----------------------end roomsArray')
+      
       const newArr: Room[] = roomsArray.map(room => {
-        return { roomName: room, members: data[room].length }
+        return { roomName: room, members: data[room].length, sockets: Object.keys(data[room].sockets) }
       })
+
+      
 
       const playerRoomArr: Room[] = newArr.filter(room => room.roomName.includes('player-'));
       playerRoomArr.forEach(room => {
@@ -75,6 +90,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
       console.log(playerRoomArr)
       this.rooms = playerRoomArr;
+
+      // This is where we will update player information as opposed to on room check
+      if (this.room) {
+        const rightRoom = playerRoomArr.filter(room => room.roomName === this.room)[0];
+        console.log('This is now the length of the room you are in', rightRoom.members)
+        console.log('This is now the sockets of the room you are in', rightRoom.sockets)
+        this.players = rightRoom.members;
+        this.playerArray = rightRoom.sockets;
+      }
+
     })
 
     this.socketService.socket.on('room created', (data) => {
@@ -85,7 +110,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.socketService.socket.on('room check back', (data) => {
       console.log(data);
-      this.players = data;
+      // this.players = data.players;
+      // this.playerArray = data.playerArray;
+      // this.initOrder = data.playerArray.indexOf(this.socketService.socket.id);
     })
   }
 
@@ -122,6 +149,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.room = '';
     this.roomPicked = false;
     this.players = 0;
+    this.playerArray = [];
+    this.initOrder = null;
   }
 
   handleCreateRoom(e) {
